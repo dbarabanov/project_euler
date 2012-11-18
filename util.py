@@ -20,7 +20,9 @@ class Helper:
 
         prime_ceiling = int(math.ceil(math.sqrt(number)))
         self.build_primes(prime_ceiling)
-        for prime in self.primes[1:]:
+        for prime in self.primes:
+            if prime == 1:
+                continue
             if prime > prime_ceiling: 
                 return True 
             if number % prime == 0:
@@ -105,7 +107,7 @@ class Helper:
         >>> helper.primes
         [1, 2, 3, 5, 7]
         """
-        for i in range(self.primes[-1]+1, limit+1):
+        for i in xrange(self.primes[-1]+1, limit+1):
             if self.is_prime(i):
                 self.primes.append(i)
         
