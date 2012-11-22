@@ -4,6 +4,7 @@ from datetime import datetime
 
 class Helper:
     primes = []
+    prime_set = set()
     def is_prime(self, number):
         """
         >>> helper.is_prime(47)
@@ -17,6 +18,8 @@ class Helper:
             return False 
         if sum(map(int, str(number)))%3 == 0:
             return False
+        if number in self.prime_set:
+            return True
 
         prime_ceiling = int(math.ceil(math.sqrt(number)))
         self.build_primes(prime_ceiling)
@@ -110,6 +113,7 @@ class Helper:
         for i in xrange(self.primes[-1]+1, limit+1):
             if self.is_prime(i):
                 self.primes.append(i)
+                self.prime_set.add(i)
         
     def __init__(self):
         self.primes = [1,2]
