@@ -90,6 +90,31 @@ class Helper:
                 divisors.append(i)
         return divisors
 
+    def are_relative_primes(self, a, b):
+        if a == 1 or b == 1:
+            return True
+        if a%b == 0 or b%a == 0:
+            return False
+        self.build_primes(max(a/2,b/2))
+        limit = min(a/2, b/2)
+        index = 1
+        prime = self.primes[index]
+        while prime<=limit:
+            if a%prime == 0 and b%prime == 0:
+                return False
+            index+=1
+            prime = self.primes[index]
+        return True
+
+    def are_relative_primes_slow(self, a, b):
+        a_divisors = self.prime_divisors(a)
+        del a_divisors[1]
+        b_divisors = self.prime_divisors(b)
+        for key in a_divisors.keys():
+            if b_divisors.get(key) != None:
+                return False
+        return True
+        
     def largest_common_denominator(self, a, b):
         """
         >>> helper.largest_common_denominator(6, 4)
